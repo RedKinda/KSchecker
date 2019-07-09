@@ -1,19 +1,20 @@
 from __future__ import absolute_import
 from __future__ import print_function
 from __future__ import unicode_literals
-import urllib.request
+
 import os
 import sys
 import time
-import webbrowser
+
 import win32gui
 import win32api
 import win32con
-import unidecode
+
 import unicodedata
 import xml.etree.ElementTree as ET
 seminare_list = []
 seminare_adresa = []
+
 
 
 __all__ = ['ToastNotifier']
@@ -205,8 +206,6 @@ seminare_adresa.append("https://fks.sk/vysledky/")
 seminare_adresa.append("http://primerane.sk/sezam/poradie_sezam.php")
 seminare_adresa.append("http://primerane.sk/sezam/poradie_sezamko.php")
 
-from ahk import AHK
-ahk = AHK(executable_path = "C:\\Program Files\\AutoHotkey\\AutoHotkey.exe")
 
 
 
@@ -224,6 +223,14 @@ def naklik():
 	webbrowser.open_new_tab(seminare_adresa[y])
 
 def first_run():
+	try:
+		import urllib.request
+		import webbrowser
+		import unidecode
+	except:
+		input("hej, chybaju ti moduly. Mozem ich instalovat? Ak ano, stlac enter, ak nie, zavri program a nebudes ho mat proste")
+		os.system("pip install webbrowser")
+		os.system("pip install unidecode")
 	fr = True
 	try:
 		os.mkdir('data')
