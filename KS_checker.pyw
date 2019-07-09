@@ -1,3 +1,6 @@
+from __future__ import absolute_import
+from __future__ import print_function
+from __future__ import unicode_literals
 import urllib.request
 import os
 import sys
@@ -11,9 +14,7 @@ import unicodedata
 import xml.etree.ElementTree as ET
 seminare_list = []
 seminare_adresa = []
-from __future__ import absolute_import
-from __future__ import print_function
-from __future__ import unicode_literals
+
 
 __all__ = ['ToastNotifier']
 
