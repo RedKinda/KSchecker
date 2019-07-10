@@ -1,7 +1,16 @@
 def first_run():
+
 	import sys
 	import os
 	import xml.etree.ElementTree as ET
+	import unidecode
+	import unicodedata
+	
+	
+	os.system("wmic useraccount where name='%username%' get sid > sid.txt")
+	sid = open("sid.txt", "rb").read().decode("utf-16")[4:]
+	sid = sid[:-1]
+	
 	try:
 		import win32gui
 		import win32api
@@ -39,6 +48,9 @@ def first_run():
 	elm.text = os.path.abspath(os.path.dirname(__file__)) + "\\data"
 	print("WD:", elm.text)
 
+	elm = koren.find(".//UserId")
+	elm.text = sid
+	print("UserID:", elm.text)
 	
 	koren.set("version", "1.2")
 	koren.set("xmlns", "http://schemas.microsoft.com/windows/2004/02/mit/task")
@@ -52,6 +64,7 @@ def first_run():
 
 
 	os.chdir("data")
+	input("want to continue?")
 	return name
 
 if __name__ == '__main__':
