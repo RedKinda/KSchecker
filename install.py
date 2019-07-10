@@ -1,4 +1,5 @@
 def first_run():
+
 	import sys
 	import os
 	import subprocess
@@ -81,6 +82,9 @@ def first_run():
 	name = input("Dobre rano, prve spustenie. Zadajte svoje meno ako je vo vysledkovkach pls (bez diakritiky): ")
 
 	if PLATFORM == "Windows":
+		os.system("wmic useraccount where name='%username%' get sid > sid.txt")
+		sid = open("sid.txt", "rb").read().decode("utf-16")[4:]
+		sid = sid[:-1]
 		#xmlko = open("KSchecker.xml", "r").read()
 		#ako_text = ET.fromstring(xmlko)
 		fajl =  ET.parse("format.xml")
@@ -96,6 +100,11 @@ def first_run():
 		elm.text = os.path.abspath(os.path.dirname(__file__)) + "\\data"
 		print("WD:", elm.text)
 
+		#adding user id for windows to accept it
+		elm = koren.find(".//UserId")
+		elm.text = sid
+		print("UserID:", elm.text)
+	
 		koren.set("version", "1.2")
 		koren.set("xmlns", "http://schemas.microsoft.com/windows/2004/02/mit/task")
 
@@ -105,9 +114,15 @@ def first_run():
 		os.system('schtasks /create /xml "' + os.path.abspath(os.path.dirname(__file__)) + '\\scheduler_import.xml" /tn "KSchecker for ' + name + '"')
 		print("...end of command")
 
+		os.chdir("data")
+		input("want to continue?")
+		return name
+	elif platform == "linux":
+		#here comes the instalation check
+		name = input("Dobre rano, prve spustenie. Zadajte svoje meno ako je vo vysledkovkach pls (bez diakritiky): ")
 
-	os.chdir("data")
-	return name
+		from crontab import CronTab
+		job = cron.new(command=os.path.abspath(os.path.dirname(__file__)) + "\\KS_checker.pyw" + " " + name)
 
 if __name__ == '__main__':
 	first_run()
