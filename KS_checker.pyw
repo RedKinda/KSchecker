@@ -8,6 +8,16 @@ import os
 import sys
 import time
 
+# platform check
+platform = sys.platform
+if platform == "linux" or platform == "linux2":
+    PLATFORM = "Linux"
+elif platform == "darwin":
+    PLATFORM = "MacOX"
+elif platform == "win32":
+    PLATFORM = "Windows"
+print("Running on platform - " + PLATFORM)
+
 fr = False #determines if this is first run on machine
 try:
 	import unidecode
@@ -16,17 +26,10 @@ except:
 	name = install.first_run()
 
 
-
-
-
-
-
-
-
-
-import win32api
-import win32con
-import win32gui
+if PLATFORM == "Windows":
+	import win32api
+	import win32con
+	import win32gui
 import urllib.request
 import webbrowser
 import unidecode
@@ -49,33 +52,34 @@ from pkg_resources import resource_filename
 from time import sleep
 
 # 3rd party modules
-from win32api import GetModuleHandle
-from win32api import PostQuitMessage
-from win32con import CW_USEDEFAULT
-from win32con import IDI_APPLICATION
-from win32con import IMAGE_ICON
-from win32con import LR_DEFAULTSIZE
-from win32con import LR_LOADFROMFILE
-from win32con import WM_USER
-from win32con import WS_OVERLAPPED
-from win32con import WS_SYSMENU
-from win32gui import CreateWindow
-from win32gui import DestroyWindow
-from win32gui import LoadIcon
-from win32gui import LoadImage
-from win32gui import NIF_ICON
-from win32gui import NIF_INFO
-from win32gui import NIF_MESSAGE
-from win32gui import NIF_TIP
-from win32gui import NIM_ADD
-from win32gui import NIM_DELETE
-from win32gui import NIM_MODIFY
-from win32gui import RegisterClass
-from win32gui import UnregisterClass
-from win32gui import Shell_NotifyIcon
-from win32gui import UpdateWindow
-from win32gui import WNDCLASS
-from win32gui import PumpMessages
+if PLATFORM == "Windows":
+	from win32api import GetModuleHandle
+	from win32api import PostQuitMessage
+	from win32con import CW_USEDEFAULT
+	from win32con import IDI_APPLICATION
+	from win32con import IMAGE_ICON
+	from win32con import LR_DEFAULTSIZE
+	from win32con import LR_LOADFROMFILE
+	from win32con import WM_USER
+	from win32con import WS_OVERLAPPED
+	from win32con import WS_SYSMENU
+	from win32gui import CreateWindow
+	from win32gui import DestroyWindow
+	from win32gui import LoadIcon
+	from win32gui import LoadImage
+	from win32gui import NIF_ICON
+	from win32gui import NIF_INFO
+	from win32gui import NIF_MESSAGE
+	from win32gui import NIF_TIP
+	from win32gui import NIM_ADD
+	from win32gui import NIM_DELETE
+	from win32gui import NIM_MODIFY
+	from win32gui import RegisterClass
+	from win32gui import UnregisterClass
+	from win32gui import Shell_NotifyIcon
+	from win32gui import UpdateWindow
+	from win32gui import WNDCLASS
+	from win32gui import PumpMessages
 
 # Magic constants
 PARAM_DESTROY = 1028
@@ -258,14 +262,14 @@ for y in range (0, len(seminare_list)):
 
 	posledne_body=""
 	progress = 0
-	pocet_uloh_seminaru = 15;
+	pocet_uloh_seminaru = 15
 	if(seminar=="sezam" or seminar=="sezamko"):
 		pocet_uloh_seminaru=8
 			
 	#opens last state
 	if os.path.exists(name + seminar + ".txt"):
-#	subor=open(name + seminar + ".txt", "a")
-#	subor.close()
+	#subor=open(name + seminar + ".txt", "a")
+	#subor.close()
 		subor=open(name + seminar + ".txt", "r")
 		posledne_body=subor.read()
 	for x in range (0, pocet_uloh_seminaru-len(posledne_body)):
