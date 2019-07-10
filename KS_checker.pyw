@@ -258,7 +258,7 @@ for y in range (0, len(seminare_list)):
 
 	posledne_body=""
 	progress = 0
-	pocet_uloh_seminaru = 15;
+	pocet_uloh_seminaru = 15
 	if(seminar=="sezam" or seminar=="sezamko"):
 		pocet_uloh_seminaru=8
 			
