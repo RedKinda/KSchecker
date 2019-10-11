@@ -8,4 +8,3 @@ Ah a ano.. no ono ked dostanes notifikaciu, a kliknes na nu, musis do dvoch seku
 enjoy
 
 
-a shit prave som si uvedomil ze na to potrebujete nainstalovat par veci, cez command line date ze 
